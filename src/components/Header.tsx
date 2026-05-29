@@ -1,15 +1,16 @@
 import React from "react";
+import Link from "next/link";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <a href="#" className="text-2xl font-extrabold tracking-tight text-zinc-900">
+        <Link href="/" className="text-2xl font-extrabold tracking-tight text-zinc-900">
           NORTH<span className="text-zinc-900 font-normal">.</span>
-        </a>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-600">
-          <a href="#" className="hover:text-zinc-900 transition-colors">Homes</a>
+          <Link href="/homes" className="hover:text-zinc-900 transition-colors">Homes</Link>
           <a href="#" className="hover:text-zinc-900 transition-colors">For Owners</a>
           <a href="#" className="hover:text-zinc-900 transition-colors">For Tenants</a>
           <a href="#" className="hover:text-zinc-900 transition-colors">Services</a>
@@ -25,3 +26,4 @@ export function Header() {
     </header>
   );
 }
+
