@@ -238,18 +238,22 @@ function ManagerCard() {
     <section className="py-10 border-b border-zinc-100">
       <h2 className="text-2xl font-semibold text-zinc-900 tracking-tight mb-4.5">Managed by</h2>
       <div className="flex items-center gap-5 p-6 border border-zinc-200 rounded-xl mt-4">
-        <div className="avatar w-16 h-16 rounded-full bg-zinc-100 overflow-hidden flex-shrink-0 flex items-center justify-center">
-          <span className="text-xs text-zinc-400 font-bold">AK</span>
+        <div className="avatar w-12 h-12 rounded-full bg-zinc-100 overflow-hidden flex-shrink-0 flex items-center justify-center font-bold text-zinc-700">
+          AK
         </div>
         <div className="info">
-          <h3 className="text-zinc-900 font-medium">
-            Ananya Krishnan <span style={{ fontSize: 12, color: "var(--muted)", marginLeft: 6 }}>· Verified manager</span>
+          <h3 className="text-zinc-900 font-semibold text-base flex items-center gap-2">
+            Ananya Krishnan <span className="text-xs text-zinc-400 font-normal">· Verified manager</span>
           </h3>
           <div className="meta text-xs text-zinc-500 mt-1">Responds in ~12 minutes · 84 homes managed</div>
         </div>
         <div className="actions ml-auto flex gap-2">
-          <button className="btn btn-outline btn-sm">Message</button>
-          <button className="btn btn-primary btn-sm">Call</button>
+          <button className="px-4 py-2 border border-zinc-200 hover:border-zinc-400 rounded-full text-sm font-semibold text-zinc-900 transition-colors">
+            Message
+          </button>
+          <button className="px-4 py-2 bg-zinc-950 text-white hover:bg-zinc-900 rounded-full text-sm font-semibold transition-colors">
+            Call
+          </button>
         </div>
       </div>
     </section>
@@ -261,7 +265,7 @@ function Reviews({ p }: { p: any }) {
     <section className="py-10 border-b border-zinc-100">
       <h2 className="text-2xl font-semibold text-zinc-900 tracking-tight mb-4.5">
         What tenants say{" "}
-        <span style={{ fontWeight: 400, color: "var(--muted)", fontSize: 16 }}>
+        <span className="font-normal text-zinc-400 text-base">
           · {p.rating} · {p.reviews} reviews
         </span>
       </h2>
@@ -269,14 +273,14 @@ function Reviews({ p }: { p: any }) {
         {REVIEWS.map((r) => (
           <div className="p-6 border border-zinc-200 rounded-xl" key={r.name}>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 overflow-hidden flex items-center justify-center">
-                <span className="text-xs text-zinc-400 font-bold">{r.name[0]}</span>
+              <div className="w-10 h-10 rounded-full bg-zinc-100 overflow-hidden flex items-center justify-center text-zinc-700 font-semibold">
+                {r.name[0]}
               </div>
               <div>
-                <div className="name font-medium text-zinc-900">{r.name}</div>
+                <div className="name font-semibold text-zinc-905">{r.name}</div>
                 <div className="sub text-xs text-zinc-500 mt-0.5">{r.duration}</div>
               </div>
-              <div style={{ marginLeft: "auto" }} className="stars text-zinc-900">
+              <div className="ml-auto text-zinc-950 flex gap-0.5 text-sm">
                 {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
               </div>
             </div>
@@ -284,7 +288,7 @@ function Reviews({ p }: { p: any }) {
           </div>
         ))}
       </div>
-      <button className="btn btn-outline" style={{ marginTop: 24 }}>
+      <button className="inline-flex items-center gap-2 px-5 py-2.5 border border-zinc-200 hover:border-zinc-400 rounded-full text-sm font-semibold text-zinc-900 transition-colors mt-6">
         Show all {p.reviews} reviews <Icons.ArrowRight size={14} />
       </button>
     </section>
@@ -309,7 +313,7 @@ function SimilarProperties({ navigate, current, favs, onFav }: SimilarProperties
     <section className="py-24 w-full max-w-[1440px] mx-auto px-8">
       <div className="flex justify-between items-end mb-9">
         <div>
-          <div className="text-[11px] letter-spacing-[0.18em] uppercase text-zinc-500 font-medium mb-2.5">Similar homes</div>
+          <div className="text-[11px] uppercase tracking-wider text-zinc-500 font-semibold mb-2.5">Similar homes</div>
           <h2 className="text-zinc-900 font-bold text-4xl tracking-tight leading-none">You might also like</h2>
         </div>
         <div className="flex gap-2">
@@ -341,12 +345,12 @@ function CTABlock() {
   return (
     <section className="text-center py-28 border-t border-zinc-100">
       <div className="w-full max-w-[1440px] mx-auto px-8">
-        <h2 className="text-zinc-900 font-bold text-5xl tracking-tight leading-none mb-6">Ready to move in?</h2>
-        <p style={{ fontSize: 18, color: "var(--ink-soft)", maxWidth: 520, margin: "0 auto 36px" }}>
+        <h2 className="text-zinc-905 font-bold text-5xl tracking-tight leading-none mb-6">Ready to move in?</h2>
+        <p className="text-zinc-500 text-lg max-w-[520px] mx-auto mb-9">
           Book a 30-minute visit. We'll meet you at the door, walk you through, and answer everything on the spot.
         </p>
-        <button className="btn btn-primary btn-lg">
-          Schedule a Visit <Icons.ArrowRight size={16} />
+        <button className="inline-flex items-center gap-2 px-7 py-3.5 bg-zinc-950 text-white hover:bg-zinc-900 rounded-full text-base font-semibold transition-all">
+          Schedule a visit <Icons.ArrowRight size={16} />
         </button>
       </div>
     </section>
