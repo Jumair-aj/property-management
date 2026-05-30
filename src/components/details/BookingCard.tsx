@@ -74,7 +74,7 @@ export function BookingCard({ p }: BookingCardProps) {
 
       <button className="bg-zinc-950 text-white rounded-full text-sm font-semibold px-6 py-4 flex items-center justify-between hover:bg-zinc-900 active:scale-95 duration-150 transition-all w-full mb-3.5">
         <span className="mx-auto flex items-center gap-2">
-          Request to visit <Icons.ArrowRight size={14} />
+          Request a call <Icons.ArrowRight size={14} />
         </span>
       </button>
 

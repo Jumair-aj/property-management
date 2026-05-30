@@ -19,8 +19,8 @@ export function Reviews({ p }: ReviewsProps) {
         {REVIEWS.map((r) => (
           <div className="p-6 border border-zinc-200 rounded-xl" key={r.name}>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 overflow-hidden flex items-center justify-center text-zinc-700 font-semibold">
-                {r.name[0]}
+              <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
+                <img src={r.avatar} alt={r.name} className="w-full h-full object-cover" />
               </div>
               <div>
                 <div className="name font-semibold text-zinc-905">{r.name}</div>

@@ -5,8 +5,12 @@ export function ManagerCard() {
     <section className="py-10 border-b border-zinc-100">
       <h2 className="text-2xl font-semibold text-zinc-900 tracking-tight mb-4.5">Managed by</h2>
       <div className="flex items-center gap-5 p-6 border border-zinc-200 rounded-xl mt-4">
-        <div className="avatar w-12 h-12 rounded-full bg-zinc-100 overflow-hidden flex-shrink-0 flex items-center justify-center font-bold text-zinc-700">
-          AK
+        <div className="avatar w-12 h-12 rounded-full overflow-hidden shrink-0">
+          <img
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=80&q=80"
+            alt="Ananya Krishnan"
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="info">
           <h3 className="text-zinc-900 font-semibold text-base flex items-center gap-2">

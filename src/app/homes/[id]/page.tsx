@@ -10,8 +10,6 @@ import { Description } from "@/components/details/Description";
 import { Amenities } from "@/components/details/Amenities";
 import { FloorPlan } from "@/components/details/FloorPlan";
 import { LocationSection } from "@/components/details/LocationSection";
-import { ManagerCard } from "@/components/details/ManagerCard";
-import { Reviews } from "@/components/details/Reviews";
 import { BookingCard } from "@/components/details/BookingCard";
 import { SimilarProperties } from "@/components/details/SimilarProperties";
 import { CTABlock } from "@/components/details/CTABlock";
@@ -78,8 +76,6 @@ export default function PropertyDetailsPage() {
             <Amenities />
             <FloorPlan p={property} />
             <LocationSection />
-            <ManagerCard />
-            <Reviews p={property} />
           </div>
           <BookingCard p={property} />
         </div>
