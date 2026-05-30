@@ -19,7 +19,7 @@ export function Tenants() {
         <p className="text-zinc-500 text-base md:text-lg font-normal leading-relaxed max-w-md mb-10">
           Move into premium homes with low deposits and transparent terms. Hassle-free renting, the way it should be.
         </p>
-        <a href="#" className="text-zinc-950 font-semibold text-sm flex items-center gap-2 hover:text-zinc-600 transition-colors group">
+        <a href="/homes" className="text-zinc-950 font-semibold text-sm flex items-center gap-2 hover:text-zinc-600 transition-colors group">
           Browse Homes
           <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

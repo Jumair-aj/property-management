@@ -13,12 +13,12 @@ export function Hero() {
         </p>
 
         <div className="flex flex-row items-center gap-6 mb-16">
-          <button className="bg-zinc-950 text-white text-sm font-semibold px-6 py-4 flex items-center gap-2 hover:bg-zinc-800 active:scale-95 duration-150 transition-all">
+          <a href="/homes" className="bg-zinc-950 text-white text-sm font-semibold px-6 py-4 flex items-center gap-2 hover:bg-zinc-800 active:scale-95 duration-150 transition-all">
             Browse Homes
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-          </button>
+          </a>
           <button className="text-zinc-900 text-sm font-semibold flex items-center gap-2 hover:text-zinc-600 transition-colors group">
             Learn More
             <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
