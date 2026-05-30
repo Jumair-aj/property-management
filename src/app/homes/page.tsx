@@ -142,11 +142,6 @@ export default function Homes() {
         </div>
       )}
 
-      {/* Mobile filter button */}
-      <button className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-zinc-950 text-white rounded-full h-11 px-5 text-sm font-semibold flex items-center gap-2 hover:bg-black active:scale-95 duration-150 lg:hidden shadow-lg">
-        <Icons.Filter size={16} /> Filters
-      </button>
-
       {/* Featured Carousel */}
       <FeaturedCarousel navigate={navigate} favs={favs} onFav={onFav} />
 
@@ -185,7 +180,7 @@ function Toolbar({ count, view, setView, sort, setSort }: ToolbarProps) {
           <option value="new">Newest first</option>
           <option value="area">Largest first</option>
         </select>
-        <div className="inline-flex bg-zinc-50 rounded-full p-0.5">
+        <div className="hidden sm:inline-flex bg-zinc-50 rounded-full p-0.5">
           <button 
             className={`h-8 px-3.5 border-0 bg-transparent rounded-full text-xs font-medium cursor-pointer flex items-center gap-1.5 transition-all ${view === "grid" ? "bg-white text-zinc-950 shadow-[0_1px_3px_rgba(0,0,0,0.06)]" : "text-zinc-500"}`} 
             onClick={() => setView("grid")}

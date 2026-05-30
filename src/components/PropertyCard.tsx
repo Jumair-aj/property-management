@@ -24,10 +24,22 @@ export function PropertyCard({ p, onClick, mode = "grid", fav, onFav }: Property
             <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">{p.title} Image</span>
           </div>
         )}
-        <div className="tags-tl absolute top-3.5 left-3.5 flex gap-1.5 z-10">
-          {p.tags.includes("Verified") && <span className="tag tag-verified">Verified</span>}
-          {p.tags.includes("Managed") && <span className="tag tag-dark">Managed</span>}
-          {p.tags.includes("New") && <span className="tag tag-line">New</span>}
+        <div className="absolute top-3 left-3 flex gap-1.5 z-10">
+          {p.tags.includes("Verified") && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-white text-zinc-900 shadow-sm">
+              Verified
+            </span>
+          )}
+          {p.tags.includes("Managed") && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-zinc-950 text-white">
+              Managed
+            </span>
+          )}
+          {p.tags.includes("New") && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-white border border-zinc-200 text-zinc-700 shadow-sm">
+              New
+            </span>
+          )}
         </div>
         <button
           className={`fav absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 text-zinc-700 flex items-center justify-center border-0 cursor-pointer shadow-sm hover:scale-106 hover:bg-white transition-all z-10 ${fav ? "active text-zinc-950" : ""}`}

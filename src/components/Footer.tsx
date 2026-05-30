@@ -1,25 +1,8 @@
-"use client";
-
-import React, { useState } from "react";
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setTimeout(() => {
-        setSubscribed(false);
-        setEmail("");
-      }, 3000);
-    }
-  };
-
   return (
     <footer className="bg-white border-t border-zinc-100 pt-20 pb-8 text-sm">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-8 gap-12 mb-16">
         <div className="md:col-span-4">
           <a href="#" className="text-2xl font-extrabold tracking-tight text-zinc-900">
             NORTH<span className="text-zinc-900 font-normal">.</span>
@@ -50,58 +33,28 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="md:col-span-2">
-          <h4 className="text-xs font-bold text-zinc-900 tracking-wider uppercase mb-4">Company</h4>
-          <ul className="space-y-3 text-zinc-500">
-            <li><a href="#" className="hover:text-zinc-900 transition-colors">About Us</a></li>
-            <li><a href="#" className="hover:text-zinc-900 transition-colors">Careers</a></li>
-            <li><a href="#" className="hover:text-zinc-900 transition-colors">Blog</a></li>
-            <li><a href="#" className="hover:text-zinc-900 transition-colors">Contact</a></li>
-          </ul>
+        <div className="md:col-span-4 flex gap-12">
+          <div>
+            <h4 className="text-xs font-bold text-zinc-900 tracking-wider uppercase mb-4">Company</h4>
+            <ul className="space-y-3 text-zinc-500">
+              <li><a href="#" className="hover:text-zinc-900 transition-colors">About Us</a></li>
+              <li><a href="#" className="hover:text-zinc-900 transition-colors">Careers</a></li>
+              <li><a href="#" className="hover:text-zinc-900 transition-colors">Blog</a></li>
+              <li><a href="#" className="hover:text-zinc-900 transition-colors">Contact</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-bold text-zinc-900 tracking-wider uppercase mb-4">Services</h4>
+            <ul className="space-y-3 text-zinc-500">
+              <li><a href="#" className="hover:text-zinc-900 transition-colors">Tenant Screening</a></li>
+              <li><a href="#" className="hover:text-zinc-900 transition-colors">Maintenance</a></li>
+              <li><a href="#" className="hover:text-zinc-900 transition-colors">Renovation</a></li>
+              <li><a href="#" className="hover:text-zinc-900 transition-colors">Furnishing</a></li>
+            </ul>
+          </div>
         </div>
 
-        <div className="md:col-span-2">
-          <h4 className="text-xs font-bold text-zinc-900 tracking-wider uppercase mb-4">Services</h4>
-          <ul className="space-y-3 text-zinc-500">
-            <li><a href="#" className="hover:text-zinc-900 transition-colors">Tenant Screening</a></li>
-            <li><a href="#" className="hover:text-zinc-900 transition-colors">Maintenance</a></li>
-            <li><a href="#" className="hover:text-zinc-900 transition-colors">Renovation</a></li>
-            <li><a href="#" className="hover:text-zinc-900 transition-colors">Furnishing</a></li>
-          </ul>
-        </div>
-
-        <div className="md:col-span-4">
-          <h4 className="text-xs font-bold text-zinc-900 tracking-wider uppercase mb-4">Stay Updated</h4>
-          <p className="text-zinc-500 mb-4 leading-relaxed">
-            Get updates on new homes and useful rental insights.
-          </p>
-          <form onSubmit={handleSubscribe} className="relative flex items-center border border-zinc-200 rounded-none overflow-hidden focus-within:border-zinc-900 transition-colors">
-            <input
-              type="email"
-              placeholder={subscribed ? "Thank you!" : "Enter your email"}
-              disabled={subscribed}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 bg-transparent text-sm placeholder-zinc-400 focus:outline-none disabled:text-zinc-500"
-              required
-            />
-            <button
-              type="submit"
-              disabled={subscribed}
-              className="bg-zinc-950 text-white p-3 hover:bg-zinc-800 disabled:bg-zinc-500 flex items-center justify-center transition-all"
-            >
-              {subscribed ? (
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                </svg>
-              ) : (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              )}
-            </button>
-          </form>
-        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-zinc-100 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-400">

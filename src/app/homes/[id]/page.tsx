@@ -82,7 +82,9 @@ export default function PropertyDetailsPage() {
       </div>
 
       {/* Similar Properties */}
-      <SimilarProperties navigate={navigate} current={property} favs={favs} onFav={onFav} />
+      <div className="hidden sm:block">
+        <SimilarProperties navigate={navigate} current={property} favs={favs} onFav={onFav} />
+      </div>
 
       {/* Big CTA */}
       <CTABlock />

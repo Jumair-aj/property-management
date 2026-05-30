@@ -66,7 +66,7 @@ export const PROPERTIES: Property[] = [
     baths: 4,
     area: 2380,
     tags: ["Managed", "Verified"],
-    img: "https://images.unsplash.com/photo-1613490493576-7e5adcf0d9c2?auto=format&fit=crop&w=800&q=80",
+    img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
     furnished: true,
     pets: true,
     rating: 4.9,

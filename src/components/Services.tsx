@@ -11,7 +11,7 @@ export function Services() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 divide-y lg:divide-y-0 lg:divide-x divide-zinc-200">
+        <div className="grid grid-cols-2 lg:grid-cols-6 divide-zinc-200 divide-x divide-y lg:divide-y-0">
           {/* Service 1 */}
           <div className="p-6 md:p-8 lg:p-6 flex flex-col items-start bg-zinc-50 hover:bg-white transition-all duration-300">
             <div className="text-zinc-800 mb-6">
