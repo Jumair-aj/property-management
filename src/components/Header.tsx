@@ -1,5 +1,5 @@
-import React from "react";
 import Link from "next/link";
+import { ListPropertyButton } from "@/components/ListPropertyButton";
 
 export function Header() {
   return (
@@ -11,17 +11,13 @@ export function Header() {
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-600">
           <Link href="/homes" className="hover:text-zinc-900 transition-colors">Homes</Link>
-          <a href="#" className="hover:text-zinc-900 transition-colors">For Owners</a>
-          <a href="#" className="hover:text-zinc-900 transition-colors">For Tenants</a>
-          <a href="#" className="hover:text-zinc-900 transition-colors">Services</a>
+          <Link href="/owners" className="hover:text-zinc-900 transition-colors">For Owners</Link>
+          <Link href="/tenants" className="hover:text-zinc-900 transition-colors">For Tenants</Link>
+          <Link href="/contact" className="hover:text-zinc-900 transition-colors">Contact</Link>
           <Link href="/about" className="hover:text-zinc-900 transition-colors">About Us</Link>
         </nav>
 
-        <div>
-          <button className="bg-zinc-950 text-white text-xs font-semibold px-5 py-3 hover:bg-zinc-800 transition-all active:scale-95 duration-150">
-            List Your Property
-          </button>
-        </div>
+        <ListPropertyButton className="bg-zinc-950 text-white text-xs font-semibold px-5 py-3 hover:bg-zinc-800 transition-all active:scale-95 duration-150" />
       </div>
     </header>
   );

@@ -53,7 +53,7 @@ export default function Homes() {
 
   const filtered = useMemo(() => {
     let list = PROPERTIES.filter((p) => {
-      if (p.rent > filters.budget[1]) return false;
+      if (p.rent < filters.budget[0] || p.rent > filters.budget[1]) return false;
       if (
         filters.beds.length &&
         !filters.beds.some((b) => (b === "4+" ? p.beds >= 4 : +b === p.beds))
@@ -80,7 +80,7 @@ export default function Homes() {
                 Premium rental homes with verified listings and transparent pricing.
               </p>
             </div>
-            <SearchBar />
+            <SearchBar filters={filters} setFilters={setFilters} />
           </div>
         </div>
       </section>
