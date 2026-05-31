@@ -60,8 +60,8 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-zinc-100 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-400">
         <span>© 2026 North. All rights reserved.</span>
         <div className="flex items-center gap-6">
-          <a href="#" className="hover:text-zinc-600 transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-zinc-600 transition-colors">Terms & Conditions</a>
+          <a href="/privacy" className="hover:text-zinc-600 transition-colors">Privacy Policy</a>
+          <a href="/terms" className="hover:text-zinc-600 transition-colors">Terms & Conditions</a>
         </div>
       </div>
     </footer>

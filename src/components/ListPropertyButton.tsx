@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { Icons } from "@/components/Icons";
 
 interface ListPropertyButtonProps {
@@ -15,7 +16,7 @@ export function ListPropertyButton({ className, label = "List Your Property" }: 
       <button className={className} onClick={() => setOpen(true)}>
         {label}
       </button>
-      {open && <ListPropertyModal onClose={() => setOpen(false)} />}
+      {open && createPortal(<ListPropertyModal onClose={() => setOpen(false)} />, document.body)}
     </>
   );
 }
