@@ -1,18 +1,51 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Icons } from "@/components/Icons";
+
+const GOOGLE_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSe5sLuj7z1I_qkUvfuMi-HQlTngDtpMan9Dpi9KFLoOWjt4vg/formResponse";
 
 interface RequestCallModalProps {
   onClose: () => void;
+  requestedFor?: string;
 }
 
-export function RequestCallModal({ onClose }: RequestCallModalProps) {
-  const [form, setForm] = useState({ name: "", phone: "", area: "" });
-  const [submitted, setSubmitted] = useState(false);
+function isValidPhone(phone: string) {
+  const digits = phone.replace(/[\s\-()]/g, "");
+  return /^(\+91|0)?[6-9]\d{9}$/.test(digits);
+}
 
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+export function RequestCallModal({ onClose, requestedFor = "" }: RequestCallModalProps) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
+  const [form, setForm] = useState({ name: "", phone: "", area: "" });
+  const [phoneError, setPhoneError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!isValidPhone(form.phone)) {
+      setPhoneError("Enter a valid 10-digit Indian mobile number");
+      return;
+    }
+    setPhoneError("");
+    setLoading(true);
+
+    const body = new URLSearchParams({
+      "entry.845872281": form.name,
+      "entry.706888483": form.phone,
+      "entry.1737162487": form.area,
+      "entry.2040347539": requestedFor,
+    });
+
+    await fetch(GOOGLE_FORM_URL, { method: "POST", mode: "no-cors", body });
+
+    setLoading(false);
     setSubmitted(true);
   };
 
@@ -64,9 +97,13 @@ export function RequestCallModal({ onClose }: RequestCallModalProps) {
                   placeholder="e.g. 98400 00000"
                   required
                   value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-zinc-950 transition-colors"
+                  onChange={(e) => {
+                    setForm({ ...form, phone: e.target.value });
+                    if (phoneError) setPhoneError("");
+                  }}
+                  className={`w-full border rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none transition-colors ${phoneError ? "border-red-400 focus:border-red-500" : "border-zinc-200 focus:border-zinc-950"}`}
                 />
+                {phoneError && <p className="mt-1.5 text-xs text-red-500">{phoneError}</p>}
               </div>
 
               <div>
@@ -83,9 +120,10 @@ export function RequestCallModal({ onClose }: RequestCallModalProps) {
 
               <button
                 type="submit"
-                className="w-full bg-zinc-950 text-white rounded-full py-3.5 text-sm font-semibold hover:bg-zinc-800 active:scale-95 transition-all duration-150 mt-2"
+                disabled={loading}
+                className="w-full bg-zinc-950 text-white rounded-full py-3.5 text-sm font-semibold hover:bg-zinc-800 active:scale-95 transition-all duration-150 mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Request a call
+                {loading ? "Sending…" : "Request a call"}
               </button>
             </form>
           </>

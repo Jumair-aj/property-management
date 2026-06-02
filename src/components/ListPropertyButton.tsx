@@ -21,8 +21,34 @@ export function ListPropertyButton({ className, label = "List Your Property" }: 
   );
 }
 
+type FormFields = { name: string; phone: string; location: string; type: string; beds: string; status: string; notes: string };
+type FormErrors = Partial<Record<keyof FormFields, string>>;
+
+function validate(form: FormFields): FormErrors {
+  const errs: FormErrors = {};
+  if (!form.name.trim()) {
+    errs.name = "Name is required.";
+  } else if (!/^[a-zA-Z\s]{2,}$/.test(form.name.trim())) {
+    errs.name = "Enter a valid name (letters only, min 2 characters).";
+  }
+  if (!form.phone.trim()) {
+    errs.phone = "Phone number is required.";
+  } else if (!/^(?:\+91|0)?[6-9]\d{9}$/.test(form.phone.replace(/\s/g, ""))) {
+    errs.phone = "Enter a valid 10-digit Indian mobile number.";
+  }
+  if (!form.location.trim()) {
+    errs.location = "Location is required.";
+  } else if (form.location.trim().length < 3) {
+    errs.location = "Location must be at least 3 characters.";
+  }
+  if (!form.type) errs.type = "Select a property type.";
+  if (!form.beds) errs.beds = "Select number of bedrooms.";
+  if (!form.status) errs.status = "Select current status.";
+  return errs;
+}
+
 function ListPropertyModal({ onClose }: { onClose: () => void }) {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormFields>({
     name: "",
     phone: "",
     location: "",
@@ -31,13 +57,50 @@ function ListPropertyModal({ onClose }: { onClose: () => void }) {
     status: "",
     notes: "",
   });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof FormFields, boolean>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [k]: e.target.value }));
+  const set = (k: keyof FormFields) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const updated = { ...form, [k]: e.target.value };
+    setForm(updated);
+    if (touched[k]) setErrors(validate(updated));
+  };
 
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const blur = (k: keyof FormFields) => () => {
+    setTouched((t) => ({ ...t, [k]: true }));
+    setErrors(validate(form));
+  };
+
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const allTouched = Object.fromEntries(Object.keys(form).map((k) => [k, true])) as Record<keyof FormFields, boolean>;
+    setTouched(allTouched);
+    const errs = validate(form);
+    setErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
+    setLoading(true);
+    const body = new FormData();
+    body.append("entry.1989960195", form.name);
+    body.append("entry.2039202528", form.phone);
+    body.append("entry.2029023960", form.location);
+    body.append("entry.921560188", form.type);
+    body.append("entry.542856317", form.beds);
+    body.append("entry.2032147991", form.status);
+    if (form.notes) body.append("entry.1783000015", form.notes);
+
+    try {
+      await fetch(
+        "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfjCOleUHyN-Q6VuJ1NEu5nvHQawJQOhwf8uNoWIwP-R7Hq_w/formResponse",
+        { method: "POST", body, mode: "no-cors" }
+      );
+    } catch {
+      // no-cors fetch always throws a network error on response read; submission still goes through
+    } finally {
+      setLoading(false);
+    }
     setSubmitted(true);
   };
 
@@ -83,29 +146,31 @@ function ListPropertyModal({ onClose }: { onClose: () => void }) {
                 Fill in the details below. If your property fits our standards, our team will call you within 24 hours.
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-zinc-900 mb-1.5">Your name</label>
                     <input
                       type="text"
                       placeholder="e.g. Ramesh Kumar"
-                      required
                       value={form.name}
                       onChange={set("name")}
-                      className="w-full border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-zinc-950 transition-colors"
+                      onBlur={blur("name")}
+                      className={`w-full border rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none transition-colors ${errors.name && touched.name ? "border-red-400 focus:border-red-500" : "border-zinc-200 focus:border-zinc-950"}`}
                     />
+                    {errors.name && touched.name && <p className="mt-1.5 text-xs text-red-500">{errors.name}</p>}
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-zinc-900 mb-1.5">Phone number</label>
                     <input
                       type="tel"
                       placeholder="e.g. 98400 00000"
-                      required
                       value={form.phone}
                       onChange={set("phone")}
-                      className="w-full border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-zinc-950 transition-colors"
+                      onBlur={blur("phone")}
+                      className={`w-full border rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none transition-colors ${errors.phone && touched.phone ? "border-red-400 focus:border-red-500" : "border-zinc-200 focus:border-zinc-950"}`}
                     />
+                    {errors.phone && touched.phone && <p className="mt-1.5 text-xs text-red-500">{errors.phone}</p>}
                   </div>
                 </div>
 
@@ -114,21 +179,22 @@ function ListPropertyModal({ onClose }: { onClose: () => void }) {
                   <input
                     type="text"
                     placeholder="e.g. Indiranagar, Bangalore"
-                    required
                     value={form.location}
                     onChange={set("location")}
-                    className="w-full border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-zinc-950 transition-colors"
+                    onBlur={blur("location")}
+                    className={`w-full border rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none transition-colors ${errors.location && touched.location ? "border-red-400 focus:border-red-500" : "border-zinc-200 focus:border-zinc-950"}`}
                   />
+                  {errors.location && touched.location && <p className="mt-1.5 text-xs text-red-500">{errors.location}</p>}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-zinc-900 mb-1.5">Property type</label>
                     <select
-                      required
                       value={form.type}
                       onChange={set("type")}
-                      className="w-full border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:border-zinc-950 transition-colors appearance-none cursor-pointer bg-white"
+                      onBlur={blur("type")}
+                      className={`w-full border rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none transition-colors appearance-none cursor-pointer bg-white ${errors.type && touched.type ? "border-red-400 focus:border-red-500" : "border-zinc-200 focus:border-zinc-950"}`}
                     >
                       <option value="">Select</option>
                       <option>Apartment</option>
@@ -137,14 +203,15 @@ function ListPropertyModal({ onClose }: { onClose: () => void }) {
                       <option>Penthouse</option>
                       <option>Independent house</option>
                     </select>
+                    {errors.type && touched.type && <p className="mt-1.5 text-xs text-red-500">{errors.type}</p>}
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-zinc-900 mb-1.5">Bedrooms</label>
                     <select
-                      required
                       value={form.beds}
                       onChange={set("beds")}
-                      className="w-full border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:border-zinc-950 transition-colors appearance-none cursor-pointer bg-white"
+                      onBlur={blur("beds")}
+                      className={`w-full border rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none transition-colors appearance-none cursor-pointer bg-white ${errors.beds && touched.beds ? "border-red-400 focus:border-red-500" : "border-zinc-200 focus:border-zinc-950"}`}
                     >
                       <option value="">Select</option>
                       <option>1 BHK</option>
@@ -152,20 +219,22 @@ function ListPropertyModal({ onClose }: { onClose: () => void }) {
                       <option>3 BHK</option>
                       <option>4+ BHK</option>
                     </select>
+                    {errors.beds && touched.beds && <p className="mt-1.5 text-xs text-red-500">{errors.beds}</p>}
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-zinc-900 mb-1.5">Current status</label>
                     <select
-                      required
                       value={form.status}
                       onChange={set("status")}
-                      className="w-full border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:border-zinc-950 transition-colors appearance-none cursor-pointer bg-white"
+                      onBlur={blur("status")}
+                      className={`w-full border rounded-xl px-4 py-3 text-sm text-zinc-900 focus:outline-none transition-colors appearance-none cursor-pointer bg-white ${errors.status && touched.status ? "border-red-400 focus:border-red-500" : "border-zinc-200 focus:border-zinc-950"}`}
                     >
                       <option value="">Select</option>
                       <option>Vacant</option>
                       <option>Currently occupied</option>
                       <option>Under renovation</option>
                     </select>
+                    {errors.status && touched.status && <p className="mt-1.5 text-xs text-red-500">{errors.status}</p>}
                   </div>
                 </div>
 
@@ -182,9 +251,10 @@ function ListPropertyModal({ onClose }: { onClose: () => void }) {
 
                 <button
                   type="submit"
-                  className="w-full bg-zinc-950 text-white rounded-full py-3.5 text-sm font-semibold hover:bg-zinc-800 active:scale-95 transition-all duration-150"
+                  disabled={loading}
+                  className="w-full bg-zinc-950 text-white rounded-full py-3.5 text-sm font-semibold hover:bg-zinc-800 active:scale-95 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Submit — we'll call you
+                  {loading ? "Submitting…" : "Submit — we'll call you"}
                 </button>
               </form>
             </>

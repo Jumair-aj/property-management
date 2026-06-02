@@ -52,7 +52,7 @@ export function BookingCard({ p }: BookingCardProps) {
         </button>
       </aside>
 
-      {modalOpen && <RequestCallModal onClose={() => setModalOpen(false)} />}
+      {modalOpen && <RequestCallModal onClose={() => setModalOpen(false)} requestedFor={p.title} />}
     </>
   );
 }

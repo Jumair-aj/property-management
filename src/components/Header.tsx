@@ -10,11 +10,11 @@ export function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-600">
-          <Link href="/homes" className="hover:text-zinc-900 transition-colors">Homes</Link>
+          <Link href="/homes" className="hover:text-zinc-900 transition-colors">Listings</Link>
           <Link href="/owners" className="hover:text-zinc-900 transition-colors">For Owners</Link>
           <Link href="/tenants" className="hover:text-zinc-900 transition-colors">For Tenants</Link>
-          <Link href="/contact" className="hover:text-zinc-900 transition-colors">Contact</Link>
           <Link href="/about" className="hover:text-zinc-900 transition-colors">About Us</Link>
+          <Link href="/contact" className="hover:text-zinc-900 transition-colors">Contact</Link>
         </nav>
 
         <ListPropertyButton className="bg-zinc-950 text-white text-xs font-semibold px-5 py-3 hover:bg-zinc-800 transition-all active:scale-95 duration-150" />
